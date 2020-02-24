@@ -20,7 +20,19 @@ const EmployeeFinder = () => {
   );
   const uniqueDepartments = getListOfDepartments();
 
-  console.log("HOOKA selected: ", selectedDepartment);
+  console.log("hook selectedDepartment is: ", selectedDepartment);
+
+  const filteredEmployees = employees.filter(function getEmployeeByFilter(
+    employee
+  ) {
+    const currentDepartment = `department-${employee.department}`.toLowerCase();
+    return currentDepartment === selectedDepartment;
+  });
+
+  console.log("filtered employees are: ", filteredEmployees);
+
+  const selectedEmployees =
+    selectedDepartment === "department-all" ? employees : filteredEmployees;
 
   return (
     <div>
@@ -28,7 +40,7 @@ const EmployeeFinder = () => {
         departments={uniqueDepartments}
         selectDepartment={setSelectedDepartment}
       />
-      <EmployeeTable employees={employees} />
+      <EmployeeTable employees={selectedEmployees} />
     </div>
   );
 };
