@@ -1,23 +1,22 @@
 import React from "react";
+import EmployeeTableRow from "./EmployeeTableRow";
 
 const EmployeeTable = ({ employees }) => {
   return (
     <table className="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">ID</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+          <th scope="col">Job title</th>
+          <th scope="col">Department</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
+        {employees.map(function renderEmployeeRow(employee, i) {
+          return <EmployeeTableRow key={i} employee={employee} />;
+        })}
       </tbody>
     </table>
   );
