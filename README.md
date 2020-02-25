@@ -22,7 +22,7 @@ Sorted screen:
 
 ## Software used
 
-Reactory is built in node.js with React, using hooks and deployed on Heroku.
+Reactory is built in React, using hooks and deployed on Heroku.
 
 ## Future features
 
