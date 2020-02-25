@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LookupHeader from "./LookupHeader";
 import EmployeeTable from "./EmployeeTable";
 import employees from "../api/data";
@@ -14,25 +14,46 @@ function getListOfDepartments() {
   return departments.sort();
 }
 
+function compareBy(method, key) {
+  return function(a, b) {
+    if (method === "asc") {
+      if (a[key] > b[key]) return 1;
+      if (a[key] < b[key]) return -1;
+    }
+
+    if (method === "desc") {
+      if (a[key] > b[key]) return -1;
+      if (a[key] < b[key]) return 1;
+    }
+
+    return 0;
+  };
+}
+
 const EmployeeFinder = () => {
   const [selectedDepartment, setSelectedDepartment] = useState(
     "department-all"
   );
+  const [sortBy, setSortBy] = useState({ method: "", key: "" });
+  const [selected, setSelected] = useState(employees);
+
   const uniqueDepartments = getListOfDepartments();
 
-  console.log("hook selectedDepartment is: ", selectedDepartment);
+  useEffect(() => {
+    const filteredEmployees = employees.filter(function getEmployeeByFilter(
+      employee
+    ) {
+      const currentDepartment = `department-${employee.department}`.toLowerCase();
+      return currentDepartment === selectedDepartment;
+    });
 
-  const filteredEmployees = employees.filter(function getEmployeeByFilter(
-    employee
-  ) {
-    const currentDepartment = `department-${employee.department}`.toLowerCase();
-    return currentDepartment === selectedDepartment;
-  });
+    const selectedEmployees =
+      selectedDepartment === "department-all" ? employees : filteredEmployees;
 
-  console.log("filtered employees are: ", filteredEmployees);
-
-  const selectedEmployees =
-    selectedDepartment === "department-all" ? employees : filteredEmployees;
+    let newList = [...selectedEmployees];
+    newList.sort(compareBy(sortBy.method, sortBy.key));
+    setSelected(newList);
+  }, [sortBy, selectedDepartment]);
 
   return (
     <div>
@@ -40,7 +61,7 @@ const EmployeeFinder = () => {
         departments={uniqueDepartments}
         selectDepartment={setSelectedDepartment}
       />
-      <EmployeeTable employees={selectedEmployees} />
+      <EmployeeTable employees={selected} handleSort={setSortBy} />
     </div>
   );
 };

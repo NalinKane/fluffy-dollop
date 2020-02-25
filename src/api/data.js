@@ -43,7 +43,7 @@ const employees = [
   },
   {
     id: 7,
-    firstName: "Stiffy",
+    firstName: "Sniffy",
     lastName: "Lemmington",
     jobTitle: "Web Developer",
     department: "IT"
