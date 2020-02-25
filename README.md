@@ -9,12 +9,15 @@ As a user I want to be able to view my employees' non-sensitive information in a
 Reactory can be viewed on https://reactory.herokuapp.com/ and it is a simple table with filtering/sorting buttons.
 
 Home screen:
+
 ![home](screenshots/main.png "Home screen")
 
 Filtered screen:
+
 ![filtered](screenshots/filtered.png "Filtered screen")
 
 Sorted screen:
+
 ![sorted](screenshots/sorted.png "Sorted screen")
 
 ## Software used
